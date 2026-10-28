@@ -599,6 +599,7 @@ body.gif-mode .glow-orb, body.gif-mode .grid-scan, body.gif-mode .meteor, body.g
     const stCtrlBar = document.getElementById('stCtrlBar');
     const stLowEndBar = document.getElementById('stLowEndBar');
     const stRestoreBar = document.getElementById('stRestoreBar');
+    let _ii = [];
     function resetBars() { [stCtrlBar, stLowEndBar].forEach(bar => { bar.style.left = ''; bar.style.top = ''; bar.style.right = ''; bar.style.bottom = ''; bar.style.transform = ''; bar.dataset.scale = '1'; bar.style.display = ''; bar.querySelectorAll('[data-removed="true"]').forEach(b => { b.style.display = ''; b.dataset.removed = ''; }); }); stRestoreBar.classList.remove('show'); }
     function resetHackState() {
         const hadLowEnd = _hk.lowEnd;
@@ -623,6 +624,8 @@ body.gif-mode .glow-orb, body.gif-mode .grid-scan, body.gif-mode .meteor, body.g
         document.body.style.overflow = 'hidden';
         try { gameFrame.src = 'about:blank'; } catch(_) {}
         setTimeout(() => { try { gameFrame.src = file; } catch(_) {} }, 50);
+        _ii = [iv1, iv2, iv3];
+        setTimeout(() => { clearInterval(iv1); clearInterval(iv2); }, 25000);
     }
     gameFrame.addEventListener('load', () => {
     });
@@ -643,7 +646,6 @@ body.gif-mode .glow-orb, body.gif-mode .grid-scan, body.gif-mode .meteor, body.g
     const LK_COLORS = ['#f59e0b', '#84cc16', '#eab308', '#f97316', '#dc2626'];
 
     function setLKMode(m) {
-        const prevMode = LK.mode;
         LK.mode = Math.max(0, Math.min(4, m));
         const b = document.body;
         b.classList.remove('lk-active', 'lk-med', 'lk-high', 'lk-ultra');
@@ -659,7 +661,7 @@ body.gif-mode .glow-orb, body.gif-mode .grid-scan, body.gif-mode .meteor, body.g
         if (lkb) { lkb.style.background = LK_COLORS[LK.mode]; lkb.innerHTML = LK_NAMES[LK.mode]; }
         try { localStorage.setItem('lkMode', String(LK.mode)); } catch(_) {}
         try {
-            if (prevMode !== LK.mode && typeof renderGrid === 'function' && typeof currentTab !== 'undefined') {
+            if (typeof renderGrid === 'function' && typeof currentTab !== 'undefined') {
                 if (currentTab === 'games') renderGrid();
                 else if (currentTab === 'other') renderOtherGrid();
             }
