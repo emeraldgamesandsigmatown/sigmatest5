@@ -7,6 +7,7 @@
 <meta charset="utf-8"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/z799gs/99@main/TemplateData/style.css"/>
 <style>
 * {
@@ -187,34 +188,27 @@ const progressText = document.getElementById('merge-progress-text');
 const statusEl = document.getElementById('merge-status');
 
 async function mergeFileParts(baseName, partCount, progressCallback) {
-  const chunks = [];
-  for (let i = 0; i < partCount; i++) {
-    const partUrl = mergeConfig.basePath + baseName + '.part' + i;
-    const response = await fetch(partUrl);
-    if (!response.ok) throw new Error(`Failed to load ${partUrl}: ${response.status}`);
-    const reader = response.body.getReader();
-    const partChunks = [];
-    let received = 0;
+  const parts = new Array(partCount);
+  let nextPart = 0;
+  const workerCount = Math.min(4, partCount);
+  async function worker() {
     while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      partChunks.push(value);
-      received += value.length;
+      const i = nextPart++;
+      if (i >= partCount) return;
+      const partUrl = mergeConfig.basePath + baseName + '.part' + i;
+      const response = await fetch(partUrl);
+      if (!response.ok) throw new Error(`Failed to load ${partUrl}: ${response.status}`);
+      const partData = new Uint8Array(await response.arrayBuffer());
+      parts[i] = partData;
+      progressCallback(i + 1, partCount);
+      console.log(`[MERGE] ${baseName} part${i} loaded (${(partData.length / 1024 / 1024).toFixed(2)} MB)`);
     }
-    const partData = new Uint8Array(received);
-    let offset = 0;
-    for (const chunk of partChunks) {
-      partData.set(chunk, offset);
-      offset += chunk.length;
-    }
-    chunks.push(partData);
-    progressCallback(i + 1, partCount);
-    console.log(`[MERGE] ${baseName} part${i} loaded (${(received / 1024 / 1024).toFixed(2)} MB)`);
   }
-  const totalSize = chunks.reduce((acc, c) => acc + c.length, 0);
+  await Promise.all(Array.from({ length: workerCount }, worker));
+  const totalSize = parts.reduce((acc, c) => acc + c.length, 0);
   const merged = new Uint8Array(totalSize);
   let off = 0;
-  for (const chunk of chunks) {
+  for (const chunk of parts) {
     merged.set(chunk, off);
     off += chunk.length;
   }
